@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block content %}
+    <h3>{{docs.0.board.name}}</h3>
+    <ul>
+        {% for d in docs %}
+            <li><a href="/board/{{d.board.urlCode}}/{{d.id}}/">{{d.title}} [{{d.date}}]</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
