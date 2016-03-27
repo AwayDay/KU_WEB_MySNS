@@ -26,7 +26,9 @@ def board_view(request, urlCode, idx):
 '''
 
 def SnsView(request, idx):
-    timline = models.webSNS.objects.all()
+    docs = models.webSNS.objects.all()
+    #docs = models.webDoc.objects.filter()
+    #docs = models.webSNS.objects.filter()
 
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -35,10 +37,10 @@ def SnsView(request, idx):
             print(request.POST['content'])
             form.save()
             form = PostForm()
-            return render(request, 'index.html', {'form': form,})
+            return render(request, 'timeline.html', {'form': form, 'docs' : docs})
         else:
             form = PostForm()
-            return render(request, 'index.html', {'form': form,})
+            return render(request, 'timeline.html', {'form': form, 'docs' : docs})
     else:
         form = PostForm()
-        return render(request, 'index.html', {'form': form,})
+        return render(request, 'timeline.html', {'form': form, 'docs' : docs})
