@@ -9,4 +9,4 @@ class webSNS(models.Model):
     content = models.TextField()
     date = models.DateField(auto_now = True)
     def __unicode__(self) :
-        return '%s-%s'%(self.title, self.date)
+        return '%s-%s'%(self.content, self.date)

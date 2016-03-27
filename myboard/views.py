@@ -31,7 +31,9 @@ def SnsView(request, idx):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            print('asdasd')
+            print(request.POST['password'])
+            print(request.POST['content'])
+            form.save()
             form = PostForm()
             return render(request, 'index.html', {'form': form,})
         else:
