@@ -7,11 +7,10 @@
 </head>
 <body>
     <h3>포스트 작성</h3>
-    
-    <form method="post" action="/sns/add">{% csrf_token %}
-        <p><label for="password">비밀번호 : <br></label><input type="password" id="password" name="password" value="" /></p>
-        <p>내용 : <br><textarea id="content" name="content"></textarea></p>
-        <p><input type="submit" value="post" /></p>
+
+    <form method="post" action="" role="form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post</button>
     </form>
 
     <hr/>

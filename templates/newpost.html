@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block title %}TIMELINE - {{ block.super }}{% endblock %}
+
+{% block post %}
+    <form method="post" action="" role="form">{% csrf_token %}
+        <!--
+        <p><label for="password">비밀번호 : <br></label><input type="password" id="password" name="password" value="" /></p>
+        <p>내용 : <br><textarea id="content" name="content"></textarea></p>
+        <p><input type="submit" value="post" /></p>
+    -->
+        {{ form.as_p }}
+        <button type="submit">Post</button>
+    </form>
+{% endblock %}

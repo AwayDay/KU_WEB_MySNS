@@ -3,6 +3,8 @@ from django.shortcuts import render_to_response
 from myboard import models
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import auth
+from .forms import PostForm
 
 # Create your views here.
 
@@ -25,15 +27,16 @@ def board_view(request, urlCode, idx):
 
 def SnsView(request, idx):
     timline = models.webSNS.objects.all()
-    if idx:
-        return render_to_response('index.html', {'timline':timline})
-    else:
-        return render_to_response('index.html', {'timline':timline})
 
-def SnsPost(request):
-    c = {}
-    c.update(csrf(request))
-    #password = request.POST['password']
-    #content = request.POST['content']
-    #return HttpResponse(password + content)
-    return render_to_response('boards.html', {'boards':boards, 'docs' : docs})
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            print('asdasd')
+            form = PostForm()
+            return render(request, 'index.html', {'form': form,})
+        else:
+            form = PostForm()
+            return render(request, 'index.html', {'form': form,})
+    else:
+        form = PostForm()
+        return render(request, 'index.html', {'form': form,})
