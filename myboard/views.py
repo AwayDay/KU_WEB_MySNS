@@ -27,8 +27,6 @@ def board_view(request, urlCode, idx):
 
 def SnsView(request, idx):
     docs = models.webSNS.objects.all()
-    #docs = models.webDoc.objects.filter()
-    #docs = models.webSNS.objects.filter()
 
     if request.method == 'POST':
         form = PostForm(request.POST)
