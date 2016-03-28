@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^board(/(?P<urlCode>\w+)/((?P<idx>\d+)/)?)?', views.board_view),
     #url(r'^sns(/(?P<urlCode>\w+)/((?P<idx>\d+)/)?)?', views.board_view),
-    url(r'^sns(/?P<idx>\d+)?', views.SnsView),
+    url(r'^sns/?(?P<idx>\d+)?', views.SnsView),
 ]
