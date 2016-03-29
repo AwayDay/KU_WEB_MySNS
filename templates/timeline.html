@@ -1,11 +1,11 @@
 {% extends 'index.html' %}
 
 {% block timeline %}
-    {% for d in docs %}
+    {% for d in docs reversed %}
         <!--<li><a href="/board/{{d.board.urlCode}}/{{d.id}}/">{{d.title}} [{{d.date}}]</a></li>-->
-        {{d.content}} - {{d.date}}
         <form method="post" action="/sns/{{d.id}}/">{% csrf_token %}
-            <button type="submit">Del</button>
+            {{d.content}} - {{d.date}}
+            <button type="submit" name="delete">Del</button>
         </form>
         <br>
     {% endfor %}

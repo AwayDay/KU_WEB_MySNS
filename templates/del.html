@@ -1,10 +1,10 @@
 {% extends 'index.html' %}
 
 {% block timeline %}
-    {{doc.content}}
+    password of '{{doc.content}}'
     <br>
-    <form method="post" action="/sns/{{doc.id}}">{% csrf_token %}
+    <form method="post" action="/sns/{{doc.id}}/">{% csrf_token %}
         <input type="password" name="del_password">
-        <button type="submit">Del</button>
+        <button type="submit" name="del">Del</button>
     </form>
 {% endblock %}
