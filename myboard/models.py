@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 
 class webSNS(models.Model):
-    password = models.TextField()
+    password = models.CharField(max_length=32)
     content = models.TextField()
     date = models.DateField(auto_now = True)
     def __unicode__(self) :

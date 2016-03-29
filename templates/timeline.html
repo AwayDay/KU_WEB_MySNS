@@ -1,12 +1,19 @@
 {% extends 'index.html' %}
 
 {% block timeline %}
-    {% for d in docs reversed %}
-        <!--<li><a href="/board/{{d.board.urlCode}}/{{d.id}}/">{{d.title}} [{{d.date}}]</a></li>-->
-        <form method="post" action="/sns/{{d.id}}/">{% csrf_token %}
-            {{d.content}} - {{d.date}}
-            <button type="submit" name="delete">Del</button>
-        </form>
-        <br>
-    {% endfor %}
+    <h3>타임라인</h3>
+    <table class="ex1">
+        <tr>
+            <th scope="col">내용</th><th scope="col">날짜</th><th scope="col">삭제</th>
+        </tr>
+        {% for d in docs reversed %}
+            <!--<li><a href="/board/{{d.board.urlCode}}/{{d.id}}/">{{d.title}} [{{d.date}}]</a></li>-->
+            <tr>
+                <form method="post" action="/sns/{{d.id}}/">{% csrf_token %}
+                    <td>{{d.content}}</td> <td>{{d.date}}</td>
+                    <td><button type="submit" name="delete">Del</button></td>
+                </form>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block timeline %}
+    <h3>DELETE</h3>
     password of '{{doc.content}}'
     <br>
     <form method="post" action="/sns/{{doc.id}}/">{% csrf_token %}
