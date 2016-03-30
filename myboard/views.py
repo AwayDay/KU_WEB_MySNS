@@ -15,9 +15,7 @@ import json
 # Create your views here.
 
 def SnsView(request, idx):
-    docs = models.webSNS.objects.all().reverse()
-    #print(type(docs))
-    #print(docs.reverse())
+    docs = models.webSNS.objects.all().order_by('-id')
     PDocs = Paginator(docs, 15)
 
     if request.method == 'POST':
@@ -70,7 +68,7 @@ def SnsView(request, idx):
         elif request.is_ajax():
             print('AJAX POST test')
             page = int(request.POST.get('NumPage'))
-            #print("page: ",page)
+            print("page: ",page)
             if page <= PDocs.num_pages:
                 #print(PDocs.page(page).object_list)
                 data = serializers.serialize("json", PDocs.page(page).object_list)
