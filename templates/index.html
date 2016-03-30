@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     {% load staticfiles %}
+    <script src="{% static "jquery-1.12.2.min.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
     <title>Board</title>
 </head>
+
 <body>
     <h3>포스트 작성</h3>
 
@@ -16,7 +18,7 @@
     </form>
 
     <hr/>
-    
+
     {% block timeline %}
     {% endblock %}
 </body>

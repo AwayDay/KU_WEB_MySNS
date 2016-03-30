@@ -1,13 +1,13 @@
 {% extends 'index.html' %}
 
 {% block timeline %}
+
     <h3>타임라인</h3>
     <table class="ex1">
         <tr>
             <th scope="col">내용</th><th scope="col">날짜</th><th scope="col">삭제</th>
         </tr>
         {% for d in docs reversed %}
-            <!--<li><a href="/board/{{d.board.urlCode}}/{{d.id}}/">{{d.title}} [{{d.date}}]</a></li>-->
             <tr>
                 <form method="post" action="/sns/{{d.id}}/">{% csrf_token %}
                     <td>{{d.content}}</td> <td>{{d.date}}</td>
@@ -16,4 +16,78 @@
             </tr>
         {% endfor %}
     </table>
+    <div class="append">
+    </div>
+
+    <script>
+        $.ajaxSetup({
+         beforeSend: function(xhr, settings) {
+             function getCookie(name) {
+                 var cookieValue = null;
+                 if (document.cookie && document.cookie != '') {
+                     var cookies = document.cookie.split(';');
+                     for (var i = 0; i < cookies.length; i++) {
+                         var cookie = jQuery.trim(cookies[i]);
+                         // Does this cookie string begin with the name we want?
+                         if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                             break;
+                         }
+                     }
+                 }
+                 return cookieValue;
+             }
+             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                 // Only send the token to relative URLs i.e. locally.
+                 xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+             }
+         }
+        });
+
+        var pageNum = 1;
+        // The latest page loaded
+        var hasNextPage = true;
+        // Indicates whether to expect another page after this one
+
+        $(window).scroll(function(){
+            if ($(window).scrollTop() == $(document).height() - $(window).height())
+            {
+                if(hasNextPage)
+                {
+                    pageNum = pageNum + 1;
+                    //$.post("/sns/", { NumPage:pageNum } );
+                    $.ajax({
+                        type: 'POST',
+                        url: "/sns/",
+                        data: { NumPage:pageNum },
+                        dataType: "json",
+                        success: function(data)
+                        {
+                            console.log(data);
+                            console.log("-------------------------------------");
+                            $.each(data, function(i, value){
+                                /*
+                                $(".ex1").append("<tr>")
+                                $(".ex1").append("<form method=\"post\" action=\"/sns/"+value.pk+"/\">")
+                                $(".ex1").append("<td>"+value.fields.content+"</td>"+"<td>"+value.fields.date+"</td>");
+                                $(".ex1").append("<td><button type=\"submit\"name=\"delete\">Del</button></td>")
+                                $(".ex1").append("</form>")
+                                $(".ex1").append("</tr>")
+                                */
+                                var TableRow = "<tr>";
+                                TableRow += "<form method=\"post\" action=\"/sns/"+value.pk+"/\">{% csrf_token %}";
+                                TableRow += "<td>"+value.fields.content+"</td>"+"<td>"+value.fields.date+"</td>";
+                                TableRow += "<td><button type=\"submit\"name=\"delete\">Del</button></td>"
+                                TableRow += "</form>"
+                                TableRow += "</tr>";
+                                $(".ex1").append(TableRow);
+                            })
+                        },
+                    });
+                }
+            }
+        });
+    </script>
+
+
 {% endblock %}
